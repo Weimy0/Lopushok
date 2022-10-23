@@ -19,7 +19,7 @@ namespace Lopushok
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new LopushokLauncherViewModel(),
                 };
             }
 

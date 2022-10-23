@@ -1,6 +1,6 @@
 ﻿namespace Lopushok.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class LopushokLauncherViewModel : ViewModelBase
     {
         public string Greeting => "Welcome to Avalonia!";
     }

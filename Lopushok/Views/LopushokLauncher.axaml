@@ -1,0 +1,297 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lopushok.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="850"
+        MinHeight="700"
+        x:Class="Lopushok.Views.MainWindow"
+        Icon="\Assets\Lopushok.ico"
+        Title="Лопушок">
+
+  <Design.DataContext>
+    <vm:LopushokLauncherViewModel/>
+  </Design.DataContext>
+
+  <Window.Styles>
+    <Style
+      Selector="Button">
+      <Setter
+        Property="Background" 
+        Value="Transparent"/>
+      <Setter 
+        Property="Width" 
+        Value="14"/>
+      <Setter 
+        Property="Height" 
+        Value="25"/>
+      <Setter 
+        Property="FontFamily" 
+        Value="Gabriola"/>
+      <Setter 
+        Property="FontSize" 
+        Value="25"/>
+      <Setter 
+        Property="Padding" 
+        Value="2,-2,0,0"/>
+    </Style>
+
+    <Style
+      Selector="Button:pointerover /template/ ContentPresenter">
+      <Setter 
+        Property="Background" 
+        Value="#00CC76"/>
+    </Style>
+    
+    <Style
+      Selector="Button:pressed /template/ ContentPresenter">
+      <Setter 
+        Property="BorderThickness"
+        Value="1"/>
+      <Setter 
+        Property="BorderBrush"
+        Value="Black"/>
+    </Style>
+
+
+  </Window.Styles>
+
+  <Grid>
+    <Image 
+      Source="\Image\Lopushok.png"
+      Opacity="0.3"/>
+
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition
+          Height="0.21*"/>
+        <RowDefinition
+          Height="*"/>
+        <RowDefinition
+          Height="0.1*"/>
+      </Grid.RowDefinitions>
+
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition
+            Height="0.55*"/>
+          <RowDefinition
+            Height="*"/>
+          <RowDefinition
+            Height="0.55*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="10*"/>
+          <ColumnDefinition
+            Width="160*"/>
+          <ColumnDefinition
+            Width="7*"/>
+          <ColumnDefinition
+            Width="81*"/>
+          <ColumnDefinition
+            Width="5*"/>
+          <ColumnDefinition
+            Width="67*"/>
+          <ColumnDefinition
+            Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          Background="#CEFFF9"
+          BorderBrush="Black"
+          BorderThickness="1"
+          Watermark="Введите для поиска"
+          FontFamily="Gabriola"
+          FontSize="25"
+          Padding="15,15,0,0"
+          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+          ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+          <TextBox.Styles>
+            <Style
+              Selector="Border:pointerover">
+              <Setter
+                Property="Background"
+                Value="#00CC76"/>
+            </Style>
+          </TextBox.Styles>
+        </TextBox>
+
+        <ComboBox
+          Grid.Row="1"
+          Grid.Column="3"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          Background="#CEFFF9"
+          BorderBrush="Black"
+          BorderThickness="1"
+          PlaceholderText="Сортировка"
+          FontFamily="Gabriola"
+          FontSize="25"
+          Padding="20,0,0,-4"
+          VerticalContentAlignment="Bottom"
+          HorizontalContentAlignment="Left">
+          <ComboBox.Styles>
+            <Style
+              Selector="Border:pointerover">
+              <Setter
+                Property="Background"
+                Value="#00CC76"/>
+            </Style>
+          </ComboBox.Styles>
+        </ComboBox>
+
+        <ComboBox
+            Grid.Row="1"
+            Grid.Column="5"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Background="#CEFFF9"
+            BorderBrush="Black"
+            BorderThickness="1"
+            PlaceholderText="Фильтрация"
+            FontFamily="Gabriola"
+            FontSize="25"
+            Padding="20,0,0,-4"
+            VerticalContentAlignment="Bottom"
+            HorizontalContentAlignment="Left">
+          <ComboBox.Styles>
+            <Style
+              Selector="Border:pointerover">
+              <Setter
+                Property="Background"
+                Value="#00CC76"/>
+            </Style>
+          </ComboBox.Styles>
+        </ComboBox>
+      </Grid>
+
+      <Grid
+        Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition
+            Width="3*"/>
+          <ColumnDefinition
+            Width="96*"/>
+          <ColumnDefinition
+            Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox
+          Grid.Column="1"
+          Background="Transparent">
+
+          <ListBox.Styles>
+            <Style
+              Selector="ListBoxItem">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate
+                    TargetType="ListBoxItem">
+                    <Border
+                      BorderBrush="Black"
+                      MinHeight="120"
+										  BorderThickness="1"
+                      Margin="0,0,0,19">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition
+                              Width="115*"/>
+                          <ColumnDefinition
+                              Width="551*"/>
+                          <ColumnDefinition
+                              Width="116*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                          Source="\Products\picture.png"
+                          Margin="10"/>
+
+                        <StackPanel
+                          Grid.Column="1"
+                          Margin="20,10,0,0">
+                          <StackPanel
+                            Orientation="Horizontal"
+                            Margin="0,3,0,0">
+                            <TextBlock
+                              Text="Тип продукта"
+                              FontFamily="Gabriola"
+                              FontSize="30"/>
+
+                            <TextBlock
+                              Text=" | "
+                              FontFamily="Gabriola"
+                              FontSize="30"/>
+
+                            <TextBlock
+                              Text="Наименование продукта"
+                              FontFamily="Gabriola"
+                              FontSize="30"/>
+                          </StackPanel>
+
+                          <TextBlock
+                            Margin="0,-25,0,0"
+                            Text="Артикул"
+                            FontFamily="Gabriola"
+                            FontSize="23"/>
+
+                          <TextBlock
+                            Margin="0,-16,0,0"
+                            Text="Материалы: "
+                            FontFamily="Gabriola"
+                            FontSize="24"/>
+                        </StackPanel>
+
+                        <TextBlock
+                          Grid.Column="2"
+                          Margin="5,21,0,0"
+                          Text="Стоимость"
+                          FontFamily="Gabriola"
+                          FontSize="23"/>
+                      </Grid>
+                      <Border.Styles>
+                        <Style
+                          Selector="Border">
+                          <Setter
+                            Property="Background"
+                            Value="#CEFFF9"/>
+                        </Style>
+                        <Style
+                          Selector="Border:pointerover">
+                          <Setter
+                            Property="Background"
+                            Value="#00CC76"/>
+                        </Style>
+                      </Border.Styles>
+                    </Border>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </ListBox.Styles>
+          <TextBlock/>
+          <TextBlock/>
+        </ListBox>
+      </Grid>
+
+      <StackPanel
+        Grid.Row="2"
+        Orientation="Horizontal"
+        HorizontalAlignment="Right"
+        Margin="0,0,26,8">
+        <Button Content="&lt;"/>
+        <Button Content="1"/>
+        <Button Content="2"/>
+        <Button Content="3"/>
+        <Button Content="4"/>
+        <Button Content="&gt;"/>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Window>
