@@ -42,89 +42,89 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Image\Lopushok.png" />
-    <AvaloniaResource Include="products\paper_0.jpeg">
+    <Content Include="products\paper_0.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_1.jpeg">
+    </Content>
+    <Content Include="products\paper_1.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_10.jpeg">
+    </Content>
+    <Content Include="products\paper_10.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_11.jpeg">
+    </Content>
+    <Content Include="products\paper_11.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_12.jpeg">
+    </Content>
+    <Content Include="products\paper_12.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_13.jpeg">
+    </Content>
+    <Content Include="products\paper_13.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_14.jpeg">
+    </Content>
+    <Content Include="products\paper_14.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_15.jpeg">
+    </Content>
+    <Content Include="products\paper_15.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_16.jpeg">
+    </Content>
+    <Content Include="products\paper_16.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_17.jpeg">
+    </Content>
+    <Content Include="products\paper_17.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_18.jpeg">
+    </Content>
+    <Content Include="products\paper_18.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_19.jpeg">
+    </Content>
+    <Content Include="products\paper_19.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_2.jpeg">
+    </Content>
+    <Content Include="products\paper_2.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_21.jpeg">
+    </Content>
+    <Content Include="products\paper_21.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_22.jpeg">
+    </Content>
+    <Content Include="products\paper_22.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_23.jpeg">
+    </Content>
+    <Content Include="products\paper_23.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_24.jpeg">
+    </Content>
+    <Content Include="products\paper_24.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_25.jpeg">
+    </Content>
+    <Content Include="products\paper_25.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_3.jpeg">
+    </Content>
+    <Content Include="products\paper_3.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_4.jpeg">
+    </Content>
+    <Content Include="products\paper_4.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_5.jpeg">
+    </Content>
+    <Content Include="products\paper_5.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_6.jpeg">
+    </Content>
+    <Content Include="products\paper_6.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_7.jpeg">
+    </Content>
+    <Content Include="products\paper_7.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_8.jpeg">
+    </Content>
+    <Content Include="products\paper_8.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\paper_9.jpeg">
+    </Content>
+    <Content Include="products\paper_9.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
-    <AvaloniaResource Include="products\picture.png">
+    </Content>
+    <Content Include="products\picture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <AvaloniaResource Include="products\paper_20.jpeg">
+    <Content Include="products\paper_20.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AvaloniaResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
 	<!--This helps with theme dll-s trimming.

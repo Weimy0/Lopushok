@@ -16,12 +16,151 @@ namespace Lopushok.ViewModels
 {
     public class LopushokLauncherViewModel : ViewModelBase
     {
-        public static MainWindow LopushokLauncherWindow = new();
-        public List<Item> Items;
+        private List<Item> _items = new();
+        private string _search = null!;
+        private List<string> _sortingList = new();
+        private List<string> _filteringList = new();
+        private string _selectedSorting = null!;
+        private string _selectedFiltering = null!;
+
+        #region Свойства
+        public List<Item> Items
+        {
+            get => _items;
+            set
+            {
+                _items = value;
+                OnPropertyChanged(nameof(Items));
+            }
+        }
+
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                _search = value;
+                GetSearchBase(value);
+                OnPropertyChanged(nameof(Search));
+            }
+        }
+
+        public List<string> SortingList
+        {
+            get => _sortingList;
+            set
+            {
+                _sortingList = value;
+                OnPropertyChanged(nameof(SortingList));
+            }
+        }
+
+        public List<string> FilteringList
+        {
+            get { return _filteringList; }
+            set
+            {
+                _filteringList = value;
+                OnPropertyChanged(nameof(FilteringList));
+            }
+        }
+
+        public string SelectedSorting
+        {
+            get => _selectedSorting;
+            set
+            {
+                _selectedSorting = value;
+                if (value != "")
+                    GetSortingBase(Items, value);
+                OnPropertyChanged(nameof(SelectedSorting));
+            }
+        }
+
+        public string SelectedFiltering
+        {
+            get => _selectedFiltering;
+            set
+            {
+                _selectedFiltering = value;
+                if (value != "")
+                    GetFilteringBase(value);
+                OnPropertyChanged(nameof(SelectedFiltering));
+            }
+        }
+        #endregion
+
         public LopushokLauncherViewModel()
         {
             Items = GetDataBaseItems();
-            LopushokLauncherWindow.ProductList.Items = Items; 
+            CreateSortingAndFilteringList();
+        }
+
+        private void GetSearchBase(string search)
+        {
+            if (Items.Count() == 0)
+            {
+                GetFilteringBase(SelectedFiltering);
+            }
+            Items = Items
+                .Where(s => s.Title.ToLower().Contains(search.ToLower()))
+                .ToList();
+            GetSortingBase(Items, SelectedSorting);
+        }
+
+        private void GetFilteringBase(string filtr)
+        {
+            if (filtr == "Без фильтрации" || filtr == null)
+            {
+                SelectedFiltering = "";
+                Items = GetDataBaseItems();
+            }
+            else if (filtr == "С материалами")
+            {
+                Items = GetDataBaseItems()
+                    .Where(f => f.Materials != null)
+                    .ToList();
+            }
+            else if (filtr == "Без материалов")
+            {
+                Items = GetDataBaseItems()
+                    .Where(f => f.Materials == null)
+                    .ToList();
+            }
+            else
+            {
+                Items = GetDataBaseItems()
+                    .Where(f => f.Type == filtr)
+                    .ToList();
+            }
+            GetSortingBase(Items, SelectedSorting);
+        }
+
+        private void GetSortingBase(List<Item> items, string sort)
+        {
+            if (sort == "Без сортировки")
+            {
+                SelectedSorting = "";
+                Items = GetDataBaseItems()
+                    .Where(item => items.Any(t => t.Title == item.Title))
+                    .ToList();
+            }
+            else if (sort == "По названию")
+            {
+                Items = items.OrderBy(t => t.Title).ToList();
+            }
+            else if (sort == "По типу")
+            {
+                Items = items.OrderBy(t => t.Type).ToList();
+            }
+            else if (sort == "По стоимости")
+            {
+                Items = items.OrderBy(t => t.Cost).ToList();
+            }
+            else if (sort == "По артиклу")
+            {
+                Items = items.OrderBy(t => t.ArticleNumber).ToList();
+            }
         }
 
         private List<Item> GetDataBaseItems()
@@ -35,8 +174,8 @@ namespace Lopushok.ViewModels
             foreach (var product in products)
             {
                 string? materials = GetMaterials(product.Id);
+                decimal cost = GetCost(product.Id);
                 var image = GetImage(product.Image);
-                decimal cost = 0;
                 var item = new Item(product.Title, product.ProductType.Title,
                     product.ArticleNumber, cost, materials, image);
 
@@ -54,7 +193,7 @@ namespace Lopushok.ViewModels
                 .Where(p => p.ProductId == productId)
                 .ToList();
 
-            if (productMaterials == null)
+            if (productMaterials.Count() == 0)
                 return null;
 
             sb.Append("Материалы: ");
@@ -66,11 +205,45 @@ namespace Lopushok.ViewModels
             return sb.ToString();
         }
 
+        private decimal GetCost(int productId)
+        {
+            var productMaterials = new LopushokContext()
+                .ProductMaterials
+                .Include(m => m.Material)
+                .Where(p => p.ProductId == productId)
+                .ToList();
+
+            decimal cost = 0;
+            foreach (var pm in productMaterials)
+            {
+                cost += Convert.ToDecimal(pm.Count) * pm.Material.Cost;
+            }
+
+            return cost;
+        }
+
         private Bitmap GetImage(string image)
         {
-            string path = (image == "") ? "products/picture.png" : image;
+            if (image == "")
+                image = @"\products\picture.png";
+            return new Bitmap("." + image);
+        }
 
-            return new Bitmap(AvaloniaLocator.Current.GetService<IAssetLoader>().Open(new Uri($"avares://{Assembly.GetEntryAssembly().GetName().Name}/{path}")));
+        private void CreateSortingAndFilteringList()
+        {
+            SortingList.Add("Без сортировки");
+            SortingList.Add("По названию");
+            SortingList.Add("По типу");
+            SortingList.Add("По стоимости");
+            SortingList.Add("По артиклу");
+
+            FilteringList.Add("Без фильтрации");
+            FilteringList.Add("С материалами");
+            FilteringList.Add("Без материалов");
+            foreach (var pt in new LopushokContext().ProductTypes)
+            {
+                FilteringList.Add(pt.Title);
+            }
         }
     }
 
@@ -80,7 +253,7 @@ namespace Lopushok.ViewModels
         public string? Type { get; set; }
         public string ArticleNumber { get; set; }
         public decimal Cost { get; set; }
-        public string? Material { get; set; }
+        public string? Materials { get; set; }
         public Bitmap Image { get; set; }
 
         public Item(string title, string? type,
@@ -91,7 +264,7 @@ namespace Lopushok.ViewModels
             Type = type;
             ArticleNumber = articleNumber;
             Cost = cost;
-            Material = material;
+            Materials = material;
             Image = image;
         }
     }

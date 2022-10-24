@@ -109,6 +109,7 @@
           BorderBrush="Black"
           BorderThickness="1"
           Watermark="Введите для поиска"
+          Text="{Binding Search}"
           FontFamily="Gabriola"
           FontSize="25"
           Padding="15,15,0,0"
@@ -133,6 +134,8 @@
           BorderBrush="Black"
           BorderThickness="1"
           PlaceholderText="Сортировка"
+          Items="{Binding SortingList}"
+          SelectedItem="{Binding SelectedSorting}"
           FontFamily="Gabriola"
           FontSize="25"
           Padding="20,0,0,-4"
@@ -157,6 +160,8 @@
             BorderBrush="Black"
             BorderThickness="1"
             PlaceholderText="Фильтрация"
+            Items="{Binding FilteringList}"
+            SelectedItem="{Binding SelectedFiltering}"
             FontFamily="Gabriola"
             FontSize="25"
             Padding="20,0,0,-4"
@@ -186,7 +191,7 @@
         
         <ListBox
           Grid.Column="1"
-          Name="ProductList"
+          Items="{Binding Items}"
           Background="Transparent">
           <ListBox.Styles>
             <Style
@@ -199,7 +204,7 @@
                       BorderBrush="Black"
                       MinHeight="120"
 										  BorderThickness="1"
-                      Margin="0,0,0,19">
+                      Margin="0,0,0,17">
                       <Grid>
                         <Grid.ColumnDefinitions>
                           <ColumnDefinition
@@ -211,7 +216,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Image
-                          Source="\Products\picture.png"
+                          Height="70"
+                          Source="{Binding Image}"
                           Margin="10"/>
 
                         <StackPanel
@@ -221,7 +227,7 @@
                             Orientation="Horizontal"
                             Margin="0,3,0,0">
                             <TextBlock
-                              Text="Тип продукта"
+                              Text="{Binding Type}"
                               FontFamily="Gabriola"
                               FontSize="30"/>
 
@@ -231,20 +237,20 @@
                               FontSize="30"/>
 
                             <TextBlock
-                              Text="Наименование продукта"
+                              Text="{Binding Title}"
                               FontFamily="Gabriola"
                               FontSize="30"/>
                           </StackPanel>
 
                           <TextBlock
                             Margin="0,-25,0,0"
-                            Text="Артикул"
+                            Text="{Binding ArticleNumber}"
                             FontFamily="Gabriola"
                             FontSize="23"/>
 
                           <TextBlock
                             Margin="0,-16,0,0"
-                            Text="Материалы: "
+                            Text="{Binding Materials, TargetNullValue='Материалов нет'}"
                             FontFamily="Gabriola"
                             FontSize="24"/>
                         </StackPanel>
@@ -252,9 +258,10 @@
                         <TextBlock
                           Grid.Column="2"
                           Margin="5,21,0,0"
-                          Text="Стоимость"
+                          Text="{Binding Cost}"
                           FontFamily="Gabriola"
-                          FontSize="23"/>
+                          FontSize="23"
+                          TextWrapping="WrapWithOverflow"/>
                       </Grid>
                       <Border.Styles>
                         <Style
