@@ -204,9 +204,9 @@
 													<ColumnDefinition
 														Width="115*"/>
 													<ColumnDefinition
-														Width="551*"/>
+														Width="557*"/>
 													<ColumnDefinition
-														Width="116*"/>
+														Width="110*"/>
 												</Grid.ColumnDefinitions>
 
 												<Image
@@ -255,8 +255,7 @@
 												  Margin="5,21,0,0"
 												  Text="{Binding Cost}"
 												  FontFamily="Gabriola"
-												  FontSize="23"
-												  TextWrapping="WrapWithOverflow"/>
+												  FontSize="23"/>
 											</Grid>
 											<Border.Styles>
 												<Style

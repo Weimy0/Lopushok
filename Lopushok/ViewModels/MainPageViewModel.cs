@@ -41,6 +41,7 @@ namespace Lopushok.ViewModels
             set
             {
                 _search = value;
+                GetFilteringBase(SelectedFiltering);
                 GetSearchBase(value);
                 OnPropertyChanged(nameof(Search));
             }
@@ -72,7 +73,7 @@ namespace Lopushok.ViewModels
             set
             {
                 _selectedSorting = value;
-                if (value != "")
+                if (value != null)
                     GetSortingBase(ProductList, value);
                 OnPropertyChanged(nameof(SelectedSorting));
             }
@@ -84,8 +85,11 @@ namespace Lopushok.ViewModels
             set
             {
                 _selectedFiltering = value;
-                if (value != "")
+                if (value != null)
+                {
                     GetFilteringBase(value);
+                }
+
                 OnPropertyChanged(nameof(SelectedFiltering));
             }
         }
@@ -97,7 +101,21 @@ namespace Lopushok.ViewModels
             CreateSortingAndFilteringList();
             CountPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ProductList.Count) / 4));
             SelectedPage = 1;
-            CreateButtonPage(1);
+            GetItemsForPage();
+        }
+
+        private void GetItemsForPage()
+        {
+            List<Item> items = new List<Item>();
+            int maxItem = SelectedPage * 4;
+            int minItem = SelectedPage * 4 - 4;
+            for (; minItem < maxItem && minItem < ProductList.Count(); minItem++)
+            {
+                items.Add(ProductList[minItem]);
+            }
+            CountPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ProductList.Count() / 4)));
+            Items = items;
+            CreateButtonPage(SelectedPage - 1);
         }
 
         public void CreateButtonPage(int startPage)
@@ -110,9 +128,14 @@ namespace Lopushok.ViewModels
                 endPage++;
             }
 
-            if (startPage + 3 > CountPage && CountPage >= endPage - startPage)
+            if (startPage + 3 > CountPage && 3 < CountPage)
             {
                 startPage = CountPage - 3;
+            }
+
+            if (CountPage < 4)
+            {
+                startPage = 1;
             }
 
             if (CountPage != 0)
@@ -140,27 +163,14 @@ namespace Lopushok.ViewModels
                 buttonRight.Click += ButtonRight_Click;
                 mainPage.StackPanelNumberPage.Children.Add(buttonRight);
             }
-            GetItemsForPage();
-        }
-
-        private void GetItemsForPage()
-        {
-            List<Item> items = new List<Item>();
-            int maxItem = SelectedPage * 4;
-            int minItem = SelectedPage * 4 - 4;
-            for (; minItem < maxItem && minItem < ProductList.Count(); minItem++)
-            {
-                items.Add(ProductList[minItem]);
-            }
-            Items = items;
         }
 
         private void ButtonLeft_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (SelectedPage - 1 > 0)
             {
-                SelectedPage--;
-                CreateButtonPage(SelectedPage - 1);
+                SelectedPage -= 1;
+                GetItemsForPage();
             }
         }
 
@@ -168,35 +178,31 @@ namespace Lopushok.ViewModels
         {
             var button = (sender as Button);
             SelectedPage = Convert.ToInt32(button.Content);
-            CreateButtonPage(SelectedPage - 1);
+            GetItemsForPage();
         }
 
         private void ButtonRight_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (SelectedPage + 1 <= CountPage)
             {
-                SelectedPage++;
-                CreateButtonPage(SelectedPage - 1);
+                SelectedPage += 1;
+                GetItemsForPage();
             }
         }
 
         private void GetSearchBase(string search)
         {
-            if (search == "" || ProductList.Count == 0)
-            {
-                GetFilteringBase(SelectedFiltering);
-            }
-            ProductList = Items
+            ProductList = ProductList
                 .Where(s => s.Title.ToLower().Contains(search.ToLower()))
                 .ToList();
-            GetSortingBase(ProductList, SelectedSorting);
+            GetSortingBase(ProductList, SelectedFiltering);
         }
 
         private void GetSortingBase(List<Item> items, string sort)
         {
             if (sort == "Без сортировки")
             {
-                SelectedSorting = "";
+                SelectedSorting = null!;
                 ProductList = GetDataBaseItems()
                     .Where(item => items.Any(t => t.Title == item.Title))
                     .ToList();
@@ -217,16 +223,15 @@ namespace Lopushok.ViewModels
             {
                 ProductList = items.OrderBy(t => t.ArticleNumber).ToList();
             }
-            CountPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ProductList.Count) / 4));
             SelectedPage = 1;
-            CreateButtonPage(1);
+            GetItemsForPage();
         }
 
         private void GetFilteringBase(string filtr)
         {
-            if (filtr == "Без фильтрации" || filtr == null || filtr == "")
+            if (filtr == "Без фильтрации" || filtr == null)
             {
-                SelectedFiltering = "";
+                SelectedFiltering = null!;
                 ProductList = GetDataBaseItems();
             }
             else if (filtr == "С материалами")
@@ -246,6 +251,11 @@ namespace Lopushok.ViewModels
                 ProductList = GetDataBaseItems()
                     .Where(f => f.Type == filtr)
                     .ToList();
+            }
+
+            if (Search != null)
+            {
+                GetSearchBase(Search);
             }
             GetSortingBase(ProductList, SelectedSorting);
         }
