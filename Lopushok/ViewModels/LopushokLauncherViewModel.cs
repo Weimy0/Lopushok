@@ -42,8 +42,9 @@ namespace Lopushok.ViewModels
             set
             {
                 _selectedItem = value;
-                AddAndEditProduct addAndEditProduct = new AddAndEditProduct();
+                AddAndEditProduct addAndEditProduct = new AddAndEditProduct(SelectedItem);
                 addAndEditProduct.ShowDialog(lopushokLauncher);
+                ProductList = GetDataBaseItems();
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
@@ -190,7 +191,7 @@ namespace Lopushok.ViewModels
         private void ButtonNumberPage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var button = (sender as Button);
-            SelectedPage = Convert.ToInt32(button.Content);
+            SelectedPage = Convert.ToInt32(button!.Content);
             GetItemsForPage();
         }
 
@@ -285,8 +286,8 @@ namespace Lopushok.ViewModels
             {
                 string? materials = GetMaterials(product.Id);
                 decimal cost = GetCost(product.Id);
-                var image = GetImage(product.Image);
-                var item = new Item(product.Title, product.ProductType.Title,
+                var image = GetImage(product.Image!);
+                var item = new Item(product.Title, product.ProductType!.Title,
                     product.ArticleNumber, cost, materials, image);
 
                 items.Add(item);
@@ -353,27 +354,6 @@ namespace Lopushok.ViewModels
             foreach (var pt in new LopushokContext().ProductTypes)
             {
                 FilteringList.Add(pt.Title);
-            }
-        }
-        public class Item
-        {
-            public string Title { get; set; }
-            public string? Type { get; set; }
-            public string ArticleNumber { get; set; }
-            public decimal Cost { get; set; }
-            public string? Materials { get; set; }
-            public Bitmap Image { get; set; }
-
-            public Item(string title, string? type,
-                string articleNumber, decimal cost,
-                string? material, Bitmap image)
-            {
-                Title = title;
-                Type = type;
-                ArticleNumber = articleNumber;
-                Cost = cost;
-                Materials = material;
-                Image = image;
             }
         }
     }

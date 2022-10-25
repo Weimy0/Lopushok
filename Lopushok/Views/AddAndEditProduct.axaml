@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Width="850" Height="700"
+        mc:Ignorable="d" Width="800" Height="600"
         x:Class="Lopushok.Views.AddAndEditProduct"
         WindowStartupLocation="CenterScreen"
         Icon="\Assets\Lopushok.ico"
@@ -13,11 +13,11 @@
 			Source="\Image\Lopushok.png"
 			Opacity="0.3"/>
 
-		<!--<Image
-			Source="\products\picture.png"
+		<Image
+			Source="{Binding Image}"
 			Width="150"
 			Margin="100,450,0,0"
-			HorizontalAlignment="Left"/>-->
+			HorizontalAlignment="Left"/>
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="0.1*"/>
@@ -27,26 +27,13 @@
 
 			<StackPanel
 				Orientation="Vertical"
+				VerticalAlignment="Center"
 				Grid.Row="1">
 				<StackPanel
-					Margin="100,0,0,30"
+					Margin="0,0,0,30"
 					Orientation="Horizontal"
-					VerticalAlignment="Center">
-					<TextBlock
-						FontSize="35"
-						FontFamily="Gabriola"
-						Height="40"
-						Width="300"
-						Text="Тип продукта: "/>
-
-					<ComboBox
-						Width="350"/>
-				</StackPanel>
-
-				<StackPanel
-					Margin="100,0,0,30"
-					Orientation="Horizontal"
-					VerticalAlignment="Center">
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center">
 					<TextBlock
 						FontSize="35"
 						Width="300"
@@ -54,29 +41,19 @@
 						Height="40"
 						Text="Наименование продукта: "/>
 
-					<ComboBox
-						Width="350"/>
-				</StackPanel>
-
-				<StackPanel
-					Margin="100,0,0,30"
-					Orientation="Horizontal"
-					VerticalAlignment="Center">
 					<TextBlock
+						Text="{Binding ProductTitle}"
 						FontSize="35"
-						Width="300"
+						Width="350"
 						FontFamily="Gabriola"
-						Height="40"
-						Text="Артикул: "/>
-
-					<TextBox
-						Width="350"/>
+						Height="40"/>
 				</StackPanel>
 
 				<StackPanel
-					Margin="100,0,0,5"
+					Margin="0,0,0,5"
 					Orientation="Horizontal"
-					VerticalAlignment="Center">
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center">
 					<TextBlock
 						FontSize="35"
 						Width="300"
@@ -88,41 +65,60 @@
 						Width="350"
 						Height="200"
 						BorderBrush="Black"
-						BorderThickness="1">
-						<TextBlock Text="Спрессованный материал серый 0x2"/>
+						BorderThickness="1"
+						Items="{Binding MaterialForProductList}"
+						SelectedItems="{Binding SelectedMaterialForProduct}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="90*"/>
+										<ColumnDefinition Width="10*"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock
+										Text="{Binding Title}"/>
+									<TextBlock
+										Grid.Column="1"
+										Text="{Binding Count}"/>
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
 					</ListBox>
 				</StackPanel>
 
 				<StackPanel
-					Margin="0,0,100,5"
+					Margin="0,0,75,5"
 					Orientation="Horizontal"
 					HorizontalAlignment="Right">
 					<ComboBox
 						PlaceholderText="Выберите материал"
-						Width="275"/>
+						Width="275"
+						Items="{Binding MaterialList}"
+						SelectedItem="{Binding SelectedMaterial}"/>
 					<TextBox
 						Watermark="Кол-во"
 						Margin="5,0,0,0"
-						Width="70"/>
+						Width="70"
+						Text="{Binding CountText}"/>
 				</StackPanel>
 
 				<StackPanel
 					Orientation="Horizontal"
 					HorizontalAlignment="Right"
-					Margin="0,0,110,0">
+					Margin="0,0,85,0">
 					<Button
 						FontSize="20"
-						Content="Добавить"/>
+						Content="Добавить"
+						Command="{Binding AddMaterial}"/>
 
 					<Button
 						FontSize="20"
 						Content="Изменить"/>
+					
 					<Button
 						FontSize="20"
 						Content="Удалить"/>
 				</StackPanel>
-
-
 			</StackPanel>
 
 			<Button

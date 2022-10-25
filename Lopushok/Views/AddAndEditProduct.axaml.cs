@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Lopushok.ViewModels;
 
 namespace Lopushok.Views
 {
@@ -7,6 +8,13 @@ namespace Lopushok.Views
         public AddAndEditProduct()
         {
             InitializeComponent();
+            DataContext = new AddAndEditProductViewModel();
+        }
+
+        public AddAndEditProduct(Item selectedItem)
+        {
+            InitializeComponent();
+            DataContext = new AddAndEditProductViewModel(selectedItem);
         }
     }
 }
