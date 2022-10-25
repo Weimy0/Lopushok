@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Lopushok.Models
+﻿namespace Lopushok.Models
 {
     public partial class Shop
     {

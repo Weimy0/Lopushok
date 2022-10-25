@@ -1,8 +1,7 @@
-using System;
-using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Lopushok.ViewModels;
+using System;
 
 namespace Lopushok
 {
@@ -17,7 +16,7 @@ namespace Lopushok
             {
                 return (Control)Activator.CreateInstance(type)!;
             }
-            
+
             return new TextBlock { Text = "Not Found: " + name };
         }
 

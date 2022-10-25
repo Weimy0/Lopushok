@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Lopushok.Views
 {
-    public partial class MainWindow : Window
+    public partial class LopushokLauncher : Window
     {
-        public MainWindow()
+        public LopushokLauncher()
         {
             InitializeComponent();
         }
