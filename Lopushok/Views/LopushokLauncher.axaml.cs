@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Lopushok.ViewModels;
 
 namespace Lopushok.Views
 {
@@ -7,6 +8,8 @@ namespace Lopushok.Views
         public LopushokLauncher()
         {
             InitializeComponent();
+            LopushokLauncherViewModel.lopushokLauncher = this;
+            DataContext = new LopushokLauncherViewModel();
         }
     }
 }
